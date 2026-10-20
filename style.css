@@ -33,7 +33,7 @@ body {
     background-color: var(--space-dark);
     background-image:
         linear-gradient(rgba(5, 5, 16, 0.25), rgba(5, 5, 16, 0.55)),
-        url("https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExMHBveGduNHliNjg3bTBmeDV4djgyN3NvdDk3MXZ1dXdzZ2tyYjludiZlcD12MV9naWZzX3NlYXJjaCZjdD1n/iicDrNGWxHmDrIni6j/giphy.gif");
+        url("./image/image.gif");
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -979,3 +979,4 @@ footer p {
         transition-duration: 0.01ms !important;
     }
 }
+
