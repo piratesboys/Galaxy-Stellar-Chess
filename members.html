@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Our Members | Galaxy Stellar Chess</title>
+
+    <meta
+        name="description"
+        content="Meet the players of Galactic Stellar Chess, our Lichess chess community."
+    >
+
+    <link rel="stylesheet" href="style.css">
+
+    <script src="members.js" defer></script>
+</head>
+
+<body>
+
+    <!-- NAVIGATION -->
+    <nav class="top-nav" aria-label="Main navigation">
+
+        <a
+            class="join-button"
+            href="https://lichess.org/team/galaxy-stellar-chess"
+            target="_blank"
+            rel="noopener noreferrer"
+        >
+            Join The Team
+        </a>
+
+        <div class="top-nav-links">
+            <a href="index.html">Home</a>
+            <a href="members.html" aria-current="page">Members</a>
+            <a href="tournament.html">Tournament</a>
+            <a href="websitehistory.html">History of the website</a>
+        </div>
+
+    </nav>
+
+
+    <!-- PAGE HEADER -->
+    <header class="page-header">
+
+        <p class="eyebrow">GALAXY STELLAR CHESS</p>
+
+        <h1>Our Members</h1>
+
+        <p class="subtitle">
+            Meet the players of our galactic community.
+        </p>
+
+    </header>
+
+
+    <!-- MAIN CONTENT -->
+    <main class="members-page">
+
+        <!-- TEAM INTRODUCTION -->
+        <section class="members-info">
+
+            <h2>🌌 Our Galactic Crew</h2>
+
+            <p>
+                Every player is part of our universe.
+                Meet the people behind our chess community!
+            </p>
+
+            <div class="member-stats">
+
+                <div class="stat-card">
+                    <span class="stat-label">TEAM MEMBERS</span>
+                    <span
+                        id="member-count"
+                        class="stat-number"
+                    >—</span>
+                </div>
+
+                <div class="stat-card">
+                    <span class="stat-label">CONNECTION</span>
+                    <span
+                        id="member-status"
+                        class="status-text"
+                    >Connecting...</span>
+                </div>
+
+            </div>
+
+            <p
+                id="last-update"
+                class="last-update"
+                aria-live="polite"
+            >
+                Waiting for Lichess...
+            </p>
+
+        </section>
+
+
+        <!-- SEARCH AND REFRESH -->
+        <section
+            class="members-controls"
+            aria-label="Member controls"
+        >
+
+            <div class="search-wrapper">
+
+                <span aria-hidden="true">⌕</span>
+
+                <input
+                    type="search"
+                    id="member-search"
+                    placeholder="Search a player..."
+                    aria-label="Search team members"
+                    autocomplete="off"
+                >
+
+            </div>
+
+            <button
+                id="refresh-members"
+                class="refresh-button"
+                type="button"
+            >
+                ↻ Refresh Members
+            </button>
+
+        </section>
+
+
+        <!-- MEMBER CARDS -->
+        <section
+            class="members-grid"
+            id="members"
+            aria-label="Team members"
+            aria-live="polite"
+            aria-busy="true"
+        >
+
+            <p class="members-message">
+                Loading our galactic crew...
+            </p>
+
+        </section>
+
+
+        <!-- FOOTER -->
+        <footer class="members-footer">
+
+            <p>♟ Galactic Stellar Chess</p>
+
+            <p>
+                United by chess. Connected by the stars.
+            </p>
+
+            <a
+                href="https://lichess.org/team/galaxy-stellar-chess"
+                target="_blank"
+                rel="noopener noreferrer"
+            >
+                Visit our Lichess team →
+            </a>
+
+        </footer>
+
+    </main>
+
+</body>
+</html>

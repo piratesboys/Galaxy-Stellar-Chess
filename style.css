@@ -1,0 +1,981 @@
+/* ==========================================
+   1. GLOBAL SETTINGS
+========================================== */
+
+* {
+    box-sizing: border-box;
+}
+
+:root {
+    --space-dark: #050510;
+    --card-background: rgba(10, 15, 40, 0.92);
+    --light-blue: lightblue;
+    --purple: #d8b4fe;
+    --white: #ffffff;
+    --muted: #e0e7ff;
+    --border: rgba(135, 206, 250, 0.4);
+    --card-border: #5265a8;
+    --shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+    --glow: 0 0 20px rgba(135, 206, 250, 0.15);
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    min-height: 100vh;
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    line-height: 1.6;
+    color: var(--white);
+
+    background-color: var(--space-dark);
+    background-image:
+        linear-gradient(rgba(5, 5, 16, 0.25), rgba(5, 5, 16, 0.55)),
+        url("https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExMHBveGduNHliNjg3bTBmeDV4djgyN3NvdDk3MXZ1dXdzZ2tyYjludiZlcD12MV9naWZzX3NlYXJjaCZjdD1n/iicDrNGWxHmDrIni6j/giphy.gif");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+img {
+    max-width: 100%;
+}
+
+a {
+    color: var(--light-blue);
+}
+
+button,
+input {
+    font: inherit;
+}
+
+button,
+a {
+    -webkit-tap-highlight-color: transparent;
+}
+
+button:focus-visible,
+input:focus-visible,
+a:focus-visible {
+    outline: 2px solid var(--white);
+    outline-offset: 4px;
+}
+
+::selection {
+    color: var(--space-dark);
+    background: var(--purple);
+}
+
+
+/* ==========================================
+   2. NAVIGATION
+========================================== */
+
+.top-nav {
+    position: relative;
+    z-index: 10;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 18px;
+
+    padding: 16px 32px;
+
+    background: rgba(5, 5, 20, 0.94);
+    border-bottom: 1px solid var(--border);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.top-nav a {
+    font-weight: bold;
+    text-decoration: none;
+    transition: 0.25s ease;
+}
+
+.top-nav-links {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.top-nav-links a {
+    padding: 9px 12px;
+    color: var(--light-blue);
+    border-radius: 7px;
+}
+
+.top-nav-links a:hover,
+.top-nav-links a[aria-current="page"] {
+    color: var(--white);
+    background: rgba(135, 206, 250, 0.18);
+}
+
+.join-button {
+    display: inline-block;
+    flex-shrink: 0;
+
+    padding: 11px 18px;
+
+    color: var(--space-dark);
+    background: var(--light-blue);
+    border: 1px solid var(--light-blue);
+    border-radius: 8px;
+
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    white-space: nowrap;
+
+    transition: 0.25s ease;
+}
+
+.join-button:hover {
+    color: var(--space-dark);
+    background: var(--white);
+    border-color: var(--white);
+    transform: translateY(-2px);
+}
+
+
+/* ==========================================
+   3. PAGE HEADERS
+========================================== */
+
+header {
+    margin: 10px 20px 30px;
+    padding: 35px 20px 45px;
+    text-align: center;
+    background: transparent;
+}
+
+header h1 {
+    margin: 0 0 12px;
+    color: var(--light-blue);
+    font-size: clamp(2rem, 5vw, 3rem);
+    line-height: 1.2;
+    text-shadow: 0 0 18px rgba(135, 206, 250, 0.45);
+}
+
+header p {
+    margin: 10px 0 0;
+    color: var(--purple);
+    font-size: clamp(1.1rem, 3vw, 1.5rem);
+}
+
+.page-header .eyebrow {
+    margin-bottom: 12px;
+    color: var(--muted);
+    font-size: 0.85rem;
+    font-weight: bold;
+    letter-spacing: 3px;
+}
+
+.page-header .subtitle {
+    margin-top: 16px;
+}
+
+
+/* ==========================================
+   4. GENERAL CARDS
+========================================== */
+
+.cards-container {
+    display: flex;
+    align-items: stretch;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 24px;
+
+    width: 100%;
+    padding: 25px 20px;
+}
+
+.card {
+    width: 280px;
+    max-width: 100%;
+    padding: 24px;
+
+    color: var(--white);
+    background: var(--card-background);
+    border: 1px solid var(--card-border);
+    border-radius: 14px;
+    box-shadow: var(--shadow);
+
+    transition:
+        transform 0.25s ease,
+        border-color 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+.card h2 {
+    margin-top: 0;
+    color: var(--light-blue);
+}
+
+.card p {
+    color: var(--muted);
+}
+
+.card a {
+    color: var(--light-blue);
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.card a:hover {
+    color: var(--white);
+    text-decoration: underline;
+}
+
+.card:hover {
+    border-color: var(--light-blue);
+    box-shadow: var(--shadow), var(--glow);
+    transform: translateY(-4px);
+}
+
+
+/* ==========================================
+   5. WEBSITE HISTORY
+========================================== */
+
+.history-content {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+
+    width: calc(100% - 32px);
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px 0 40px;
+}
+
+.history-chapter {
+    padding: 25px;
+
+    background: var(--card-background);
+    border: 1px solid var(--card-border);
+    border-left: 4px solid var(--light-blue);
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+
+    transition: transform 0.25s ease, border-color 0.25s ease;
+}
+
+.history-chapter h2 {
+    margin-top: 0;
+    color: var(--light-blue);
+}
+
+.history-chapter p {
+    color: var(--muted);
+    line-height: 1.8;
+}
+
+.history-chapter:hover {
+    border-color: var(--light-blue);
+    transform: translateX(4px);
+}
+
+
+/* ==========================================
+   6. MEMBERS PAGE
+========================================== */
+
+.members-page {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.members-info {
+    margin-bottom: 28px;
+    color: var(--muted);
+    text-align: center;
+}
+
+.members-info h2 {
+    color: var(--light-blue);
+    font-size: 1.75rem;
+}
+
+.members-info p {
+    margin: 8px 0;
+}
+
+#member-count {
+    color: var(--light-blue);
+    font-size: 1.3rem;
+    font-weight: bold;
+}
+
+#last-update {
+    color: var(--purple);
+    font-size: 0.9rem;
+}
+
+
+/* Member statistics */
+
+.member-stats {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin: 24px auto;
+}
+
+.stat-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+
+    min-width: 165px;
+    padding: 16px 24px;
+
+    background: var(--card-background);
+    border: 1px solid var(--card-border);
+    border-radius: 12px;
+}
+
+.stat-label {
+    color: var(--purple);
+    font-size: 0.75rem;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.stat-number {
+    color: var(--light-blue);
+    font-size: 1.8rem;
+    font-weight: bold;
+}
+
+.status-text {
+    color: var(--light-blue);
+    font-weight: bold;
+}
+
+
+/* Search and refresh controls */
+
+.members-controls {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 14px;
+    margin: 28px 0;
+}
+
+.search-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    flex: 1;
+    min-width: 180px;
+    max-width: 500px;
+    padding: 0 14px;
+
+    background: rgba(10, 15, 40, 0.95);
+    border: 1px solid var(--card-border);
+    border-radius: 10px;
+
+    transition: border-color 0.2s ease;
+}
+
+.search-wrapper:focus-within {
+    border-color: var(--light-blue);
+}
+
+.search-wrapper span {
+    color: var(--light-blue);
+    font-size: 1.5rem;
+}
+
+.search-wrapper input {
+    width: 100%;
+    min-width: 0;
+    padding: 13px 0;
+
+    color: var(--white);
+    background: transparent;
+    border: none;
+    outline: none;
+}
+
+.search-wrapper input::placeholder {
+    color: #c4b5fd;
+}
+
+.search-wrapper input:focus-visible {
+    outline: none;
+}
+
+.refresh-button {
+    padding: 13px 18px;
+
+    color: var(--space-dark);
+    background: var(--light-blue);
+    border: 1px solid var(--light-blue);
+    border-radius: 8px;
+
+    font-weight: bold;
+    cursor: pointer;
+
+    transition: 0.25s ease;
+}
+
+.refresh-button:hover:not(:disabled) {
+    background: var(--white);
+    border-color: var(--white);
+    transform: translateY(-2px);
+}
+
+.refresh-button:disabled {
+    opacity: 0.6;
+    cursor: wait;
+}
+
+
+/* Members grid */
+
+.members-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    align-items: stretch;
+    gap: 20px;
+
+    min-height: 100px;
+}
+
+
+/* Individual member cards */
+
+.member-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+
+    min-width: 0;
+    padding: 24px 16px;
+
+    color: var(--white);
+    text-align: center;
+    text-decoration: none;
+    overflow-wrap: anywhere;
+
+    background: var(--card-background);
+    border: 1px solid var(--card-border);
+    border-radius: 16px;
+    box-shadow: var(--shadow);
+
+    transition:
+        transform 0.25s ease,
+        border-color 0.25s ease,
+        background-color 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+.member-card:hover {
+    color: var(--white);
+    background: rgba(25, 35, 75, 0.96);
+    border-color: var(--light-blue);
+    box-shadow: var(--shadow), var(--glow);
+    transform: translateY(-5px);
+}
+
+.member-card:focus-visible {
+    outline: 3px solid var(--white);
+    outline-offset: 4px;
+}
+
+.member-avatar {
+    display: block;
+    flex-shrink: 0;
+
+    width: 88px;
+    height: 88px;
+
+    object-fit: cover;
+    border: 3px solid var(--light-blue);
+    border-radius: 50%;
+    background: #15152e;
+}
+
+.member-name {
+    max-width: 100%;
+    color: var(--light-blue);
+    font-size: 1.05rem;
+    font-weight: bold;
+    overflow-wrap: anywhere;
+}
+
+
+/* Loading, empty and error messages */
+
+.members-message {
+    grid-column: 1 / -1;
+
+    width: 100%;
+    margin: 0;
+    padding: 25px;
+
+    color: var(--muted);
+    text-align: center;
+
+    background: var(--card-background);
+    border: 1px solid var(--card-border);
+    border-radius: 12px;
+}
+
+
+/* Members footer */
+
+.members-footer {
+    margin-top: 50px;
+    padding: 25px 15px;
+
+    text-align: center;
+    border-top: 1px solid var(--border);
+}
+
+.members-footer p {
+    margin: 8px 0;
+    color: var(--muted);
+}
+
+.members-footer p:first-child {
+    color: var(--light-blue);
+    font-weight: bold;
+}
+
+.members-footer a {
+    display: inline-block;
+    margin-top: 8px;
+    color: var(--light-blue);
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.members-footer a:hover {
+    color: var(--white);
+    text-decoration: underline;
+}
+
+
+/* ==========================================
+   7. TOURNAMENT PAGE
+========================================== */
+
+.tournament-page {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.tournament-section {
+    margin-bottom: 45px;
+}
+
+.tournament-section > h2 {
+    margin-bottom: 8px;
+    color: var(--light-blue);
+    font-size: 1.8rem;
+    text-align: center;
+    text-shadow: 0 0 12px rgba(135, 206, 250, 0.2);
+}
+
+.tournament-section > p {
+    margin: 0 0 25px;
+    color: var(--muted);
+    text-align: center;
+}
+
+.tournament-category {
+    margin: 28px 0;
+}
+
+.tournament-category > h3 {
+    margin: 0 0 12px;
+    padding: 10px 14px;
+
+    color: var(--purple);
+    font-size: 1.2rem;
+
+    background: rgba(10, 15, 40, 0.78);
+    border-left: 3px solid var(--purple);
+    border-radius: 5px;
+}
+
+
+/* Tournament lists */
+
+.tournament-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    align-items: stretch;
+    gap: 20px;
+}
+
+.tournament-category .cards-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    align-items: stretch;
+    justify-content: stretch;
+    gap: 20px;
+
+    padding: 10px 0;
+}
+
+
+/* Tournament cards generated by JavaScript */
+
+.tournament-card {
+    width: 100%;
+    min-width: 0;
+    padding: 24px;
+
+    color: var(--white);
+    background: var(--card-background);
+    border: 1px solid var(--card-border);
+    border-radius: 14px;
+    box-shadow: var(--shadow);
+
+    overflow-wrap: anywhere;
+
+    transition:
+        transform 0.25s ease,
+        border-color 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+.tournament-card h2,
+.tournament-card h3 {
+    margin-top: 0;
+    color: var(--light-blue);
+}
+
+.tournament-card h2 {
+    font-size: 1.25rem;
+}
+
+.tournament-card p {
+    color: var(--muted);
+}
+
+.tournament-card a {
+    display: inline-block;
+    margin-top: 10px;
+    color: var(--light-blue);
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.tournament-card a:hover {
+    color: var(--white);
+    text-decoration: underline;
+}
+
+.tournament-card:hover {
+    border-color: var(--light-blue);
+    box-shadow: var(--shadow), var(--glow);
+    transform: translateY(-4px);
+}
+
+
+/* Tournament icons */
+
+.tournament-icon {
+    margin-bottom: 10px;
+    font-size: 2.2rem;
+}
+
+
+/* Shared empty and error messages */
+
+.tournament-category .card {
+    width: 100%;
+    min-width: 0;
+}
+
+.tournament-category .members-message,
+.tournament-category .tournament-message {
+    grid-column: 1 / -1;
+
+    width: 100%;
+    margin: 0;
+    padding: 22px;
+
+    color: var(--muted);
+    text-align: center;
+
+    background: var(--card-background);
+    border: 1px solid var(--card-border);
+    border-radius: 12px;
+}
+
+
+/* Tournament intro and footer */
+
+.tournament-intro,
+.tournament-footer {
+    max-width: 850px;
+    margin: 30px auto;
+    padding: 28px;
+
+    text-align: center;
+
+    background: var(--card-background);
+    border: 1px solid var(--card-border);
+    border-radius: 14px;
+    box-shadow: var(--shadow);
+}
+
+.tournament-intro h2,
+.tournament-footer h2 {
+    color: var(--light-blue);
+}
+
+.tournament-intro p,
+.tournament-footer p {
+    color: var(--muted);
+    line-height: 1.7;
+}
+
+.tournament-footer a {
+    color: var(--light-blue);
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.tournament-footer a:hover {
+    color: var(--white);
+    text-decoration: underline;
+}
+
+
+/* Tournament buttons */
+
+.tournament-button {
+    display: inline-block;
+    margin-top: 12px;
+    padding: 12px 20px;
+
+    color: var(--space-dark);
+    background: var(--light-blue);
+    border: 1px solid var(--light-blue);
+    border-radius: 8px;
+
+    font-weight: bold;
+    text-decoration: none;
+
+    transition: 0.25s ease;
+}
+
+.tournament-button:hover {
+    color: var(--space-dark);
+    background: var(--white);
+    border-color: var(--white);
+    transform: translateY(-2px);
+}
+
+
+/* ==========================================
+   8. GENERAL FOOTER
+========================================== */
+
+footer {
+    margin-top: 40px;
+    padding: 24px 16px;
+
+    color: var(--muted);
+    text-align: center;
+
+    background: rgba(5, 5, 20, 0.85);
+    border-top: 1px solid var(--border);
+}
+
+footer p {
+    margin: 5px 0;
+}
+
+
+/* ==========================================
+   9. RESPONSIVE DESIGN
+========================================== */
+
+@media (max-width: 750px) {
+    .top-nav {
+        flex-direction: column;
+        justify-content: center;
+        padding: 16px;
+        gap: 12px;
+    }
+
+    .top-nav-links {
+        justify-content: center;
+        gap: 4px;
+    }
+
+    .top-nav-links a {
+        padding: 8px;
+        font-size: 0.88rem;
+    }
+
+    header {
+        margin: 15px 10px 25px;
+        padding: 25px 12px 35px;
+    }
+
+    .cards-container {
+        gap: 16px;
+        padding: 20px 16px;
+    }
+
+    .card {
+        width: 100%;
+        max-width: 420px;
+    }
+
+    .history-content {
+        gap: 16px;
+    }
+
+    .history-chapter {
+        padding: 20px;
+    }
+
+    .members-controls {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .search-wrapper {
+        width: 100%;
+        max-width: none;
+    }
+
+    .refresh-button {
+        width: 100%;
+    }
+
+    .members-grid {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 14px;
+    }
+
+    .tournament-page {
+        padding: 16px;
+    }
+
+    .tournament-section {
+        margin-bottom: 32px;
+    }
+
+    .tournament-category .cards-container,
+    .tournament-grid {
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 14px;
+    }
+
+    .tournament-intro,
+    .tournament-footer {
+        padding: 22px 16px;
+    }
+}
+
+
+/* ==========================================
+   10. SMALL MOBILE SCREENS
+========================================== */
+
+@media (max-width: 500px) {
+    header h1 {
+        font-size: 2rem;
+    }
+
+    header p {
+        font-size: 1.1rem;
+    }
+
+    .members-page {
+        padding: 16px;
+    }
+
+    .members-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+    }
+
+    .member-card {
+        padding: 18px 10px;
+    }
+
+    .member-avatar {
+        width: 68px;
+        height: 68px;
+    }
+
+    .member-name {
+        font-size: 0.9rem;
+    }
+
+    .stat-card {
+        min-width: 130px;
+        padding: 14px;
+    }
+
+    .tournament-category .cards-container,
+    .tournament-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .tournament-card {
+        padding: 20px;
+    }
+}
+
+@media (max-width: 350px) {
+    .members-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .top-nav-links {
+        gap: 2px;
+    }
+
+    .top-nav-links a {
+        padding: 7px;
+        font-size: 0.75rem;
+    }
+}
+
+
+/* ==========================================
+   11. REDUCED MOTION ACCESSIBILITY
+========================================== */
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        scroll-behavior: auto !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
