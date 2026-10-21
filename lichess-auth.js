@@ -1,7 +1,7 @@
 
 /*
- * Galaxy Stellar Chess — Connexion Lichess
- * OAuth 2.0 + PKCE, sans serveur.
+ * Galaxy Stellar Chess — Lichess Authentication
+ * OAuth 2.0 with PKCE for GitHub Pages.
  */
 
 const CLIENT_ID = "galaxy-stellar-chess";
@@ -28,6 +28,7 @@ function showMessage(text) {
 
 function base64Url(bytes) {
   let binary = "";
+
   for (const byte of bytes) {
     binary += String.fromCharCode(byte);
   }
@@ -39,11 +40,9 @@ function base64Url(bytes) {
 }
 
 function randomString(byteLength = 32) {
-  const bytes = crypto.getRandomValues(
-    new Uint8Array(byteLength)
+  return base64Url(
+    crypto.getRandomValues(new Uint8Array(byteLength))
   );
-
-  return base64Url(bytes);
 }
 
 async function createChallenge(verifier) {
@@ -57,7 +56,7 @@ async function startLogin() {
   try {
     if (!window.isSecureContext || !crypto.subtle) {
       throw new Error(
-        "La connexion doit être effectuée sur HTTPS."
+        "Authentication requires a secure HTTPS connection."
       );
     }
 
@@ -81,7 +80,9 @@ async function startLogin() {
       "https://lichess.org/oauth?" + params.toString()
     );
   } catch (error) {
-    showMessage(error.message || "Impossible de démarrer la connexion.");
+    showMessage(
+      error.message || "Unable to start authentication."
+    );
   }
 }
 
@@ -89,7 +90,6 @@ async function exchangeCode(code, returnedState) {
   const verifier = sessionStorage.getItem(VERIFIER_KEY);
   const expectedState = sessionStorage.getItem(STATE_KEY);
 
-  // Nettoyer l'URL pour éviter de conserver le code dans l'historique.
   window.history.replaceState(
     {},
     document.title,
@@ -99,9 +99,13 @@ async function exchangeCode(code, returnedState) {
   sessionStorage.removeItem(VERIFIER_KEY);
   sessionStorage.removeItem(STATE_KEY);
 
-  if (!verifier || !expectedState || returnedState !== expectedState) {
+  if (
+    !verifier ||
+    !expectedState ||
+    returnedState !== expectedState
+  ) {
     throw new Error(
-      "Vérification de sécurité échouée. Recommence la connexion."
+      "Security verification failed. Please sign in again."
     );
   }
 
@@ -123,18 +127,18 @@ async function exchangeCode(code, returnedState) {
 
   if (!response.ok) {
     throw new Error(
-      "Lichess a refusé la connexion (HTTP " +
-      response.status + "). Réessaie."
+      "Lichess rejected the authentication request (HTTP " +
+      response.status + "). Please try again."
     );
   }
 
   const data = await response.json();
 
   if (!data.access_token) {
-    throw new Error("Lichess n'a pas fourni de jeton.");
+    throw new Error("Lichess did not provide an access token.");
   }
 
-  // Session temporaire dans cet onglet, pas de stockage permanent.
+  // Keep the token for this browser tab's session.
   sessionStorage.setItem(TOKEN_KEY, data.access_token);
 
   await loadProfile(data.access_token);
@@ -150,7 +154,7 @@ async function apiGet(url, token) {
 
   if (!response.ok) {
     throw new Error(
-      "Erreur API Lichess (HTTP " + response.status + ")."
+      "Lichess API error (HTTP " + response.status + ")."
     );
   }
 
@@ -158,7 +162,7 @@ async function apiGet(url, token) {
 }
 
 async function loadProfile(token) {
-  showMessage("Chargement du profil Lichess...");
+  showMessage("Loading your Lichess profile...");
 
   const account = await apiGet(
     "https://lichess.org/api/account",
@@ -166,64 +170,68 @@ async function loadProfile(token) {
   );
 
   if (!account.username) {
-    throw new Error("Impossible de lire ton compte Lichess.");
+    throw new Error("Unable to retrieve your Lichess account.");
   }
 
   usernameElement.textContent = account.username;
+
   profileLink.href =
-    "https://lichess.org/@/" +
+    "https://lichess.org/@" +
     encodeURIComponent(account.username);
 
   loginButton.hidden = true;
   profileBox.hidden = false;
 
-  showMessage("Connecté avec Lichess.");
+  showMessage("Successfully signed in with Lichess.");
 
   await checkTeam(account.username);
 }
 
 async function checkTeam(username) {
-  teamStatus.textContent = "Vérification...";
+  teamStatus.textContent = "Checking...";
 
   try {
-    // Cette route publique liste les équipes d'un joueur.
-    const teams = await fetch(
+    const response = await fetch(
       "https://lichess.org/api/team/of/" +
       encodeURIComponent(username),
-      { headers: { Accept: "application/json" } }
+      {
+        headers: {
+          Accept: "application/json"
+        }
+      }
     );
 
-    if (!teams.ok) {
-      throw new Error("Vérification indisponible.");
+    if (!response.ok) {
+      throw new Error("Team verification is unavailable.");
     }
 
-    const teamList = await teams.json();
+    const teams = await response.json();
 
-    const isMember = Array.isArray(teamList) &&
-      teamList.some(team => team.id === TEAM_ID);
+    const isMember = Array.isArray(teams) &&
+      teams.some(team => team.id === TEAM_ID);
 
     if (isMember) {
-      teamStatus.textContent = "Membre confirmé ✓";
+      teamStatus.textContent = "Verified member ✓";
     } else {
-      teamStatus.textContent = "Pas membre actuellement";
+      teamStatus.textContent = "Not currently a member";
     }
   } catch (error) {
-    teamStatus.textContent = "Vérification impossible";
+    teamStatus.textContent = "Unable to verify membership";
   }
 }
 
 function logout() {
-  // Cela supprime la session locale, mais ne révoque pas
-  // le jeton auprès de Lichess.
+  // Clears the local session; it does not revoke the Lichess token.
   sessionStorage.removeItem(TOKEN_KEY);
 
   profileBox.hidden = true;
   loginButton.hidden = false;
+
   usernameElement.textContent = "";
   profileLink.href = "#";
-  teamStatus.textContent = "Non vérifié";
+  teamStatus.textContent = "Not verified";
 
-  showMessage("Tu es déconnecté de ce site.");
+  showMessage("You have been signed out of this website.");
 }
 
 async function initialize() {
@@ -236,8 +244,13 @@ async function initialize() {
   const oauthError = params.get("error");
 
   if (oauthError) {
-    window.history.replaceState({}, document.title, REDIRECT_URI);
-    showMessage("Connexion Lichess annulée ou refusée.");
+    window.history.replaceState(
+      {},
+      document.title,
+      REDIRECT_URI
+    );
+
+    showMessage("Lichess sign-in was cancelled or denied.");
     return;
   }
 
@@ -254,9 +267,13 @@ async function initialize() {
     }
   } catch (error) {
     sessionStorage.removeItem(TOKEN_KEY);
+
     profileBox.hidden = true;
     loginButton.hidden = false;
-    showMessage(error.message || "Erreur lors de la connexion.");
+
+    showMessage(
+      error.message || "An authentication error occurred."
+    );
   }
 }
 
