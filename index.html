@@ -47,6 +47,40 @@
     
 </header>
 
+<section class="lichess-login card">
+  <h2>Mon compte Lichess</h2>
+
+  <button id="lichess-login-btn" class="join-button">
+    Se connecter avec Lichess
+  </button>
+
+  <div id="lichess-profile" hidden>
+    <h3>Bienvenue, <span id="lichess-username"></span> !</h3>
+
+    <p>
+      Équipe Galaxy Stellar Chess :
+      <strong id="lichess-team-status">Vérification...</strong>
+    </p>
+
+    <a
+      id="lichess-profile-link"
+      href="#"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      Voir mon profil Lichess
+    </a>
+
+    <br><br>
+
+    <button id="lichess-logout-btn" type="button">
+      Se déconnecter
+    </button>
+  </div>
+
+  <p id="lichess-message" role="status" aria-live="polite"></p>
+</section>
+
 
 <section class="cards-container">
 
@@ -69,6 +103,8 @@
     </article>
 
 </section>
+
+<script src="lichess-auth.js"></script>
 
     
 </body>

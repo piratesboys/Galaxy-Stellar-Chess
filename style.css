@@ -980,3 +980,40 @@ footer p {
     }
 }
 
+
+/* Connexion Lichess */
+.lichess-login {
+  max-width: 620px;
+  margin: 40px auto;
+  padding: 28px;
+  text-align: center;
+  color: #f4f2ff;
+  border: 1px solid rgba(151, 120, 255, 0.4);
+  border-radius: 16px;
+  background: rgba(15, 18, 43, 0.88);
+  box-shadow: 0 0 24px rgba(111, 78, 255, 0.12);
+}
+
+.lichess-login button {
+  cursor: pointer;
+  font: inherit;
+}
+
+.lichess-login a {
+  color: #b9a7ff;
+}
+
+#lichess-message {
+  overflow-wrap: anywhere;
+  margin-top: 16px;
+}
+
+#lichess-team-status {
+  color: #9ee7bd;
+}
+
+#lichess-profile[hidden],
+#lichess-login-btn[hidden] {
+  display: none;
+}
+
